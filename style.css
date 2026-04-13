@@ -1,0 +1,1033 @@
+/* ===== BASE RESET & VARIABLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Purple + light tosca (aqua/teal) — POPFOI brand palette */
+    --primary: #9333ea;
+    --primary-light: #c084fc;
+    --secondary: #2dd4bf;
+    --secondary-light: #5eead4;
+    --dark-bg: #100818;
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --card-border: rgba(200, 180, 255, 0.14);
+    --text-primary: #f4f6ff;
+    --text-secondary: rgba(228, 232, 255, 0.78);
+    --text-muted: rgba(200, 210, 255, 0.45);
+    --success: #5eead4;
+    --warning: #d8b4fe;
+    --accent-line: rgba(192, 132, 252, 0.4);
+    --glow-primary: rgba(147, 51, 234, 0.45);
+    --glow-secondary: rgba(45, 212, 191, 0.42);
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(20, 24, 45, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-light) 0%, var(--secondary) 100%);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) rgba(15, 18, 34, 0.6);
+}
+
+/* ===== BODY & BACKGROUND ===== */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--dark-bg);
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated gradient orbs */
+.bg-orbs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--primary);
+    top: -200px;
+    right: -200px;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: var(--secondary);
+    bottom: -150px;
+    left: -150px;
+    animation-delay: -7s;
+}
+
+.orb-3 {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -14s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(30px, -30px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(20px, 30px) scale(1.02);
+    }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Brand block: POPBEA on top, partner marks in one row below ===== */
+.brand-logos {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 22px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.brand-logos-primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 8px 12px;
+    flex-wrap: wrap;
+}
+
+.brand-logos-partners {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    row-gap: 8px;
+    width: 100%;
+    padding-top: 5px;
+    border-top: 1px solid rgba(200, 180, 255, 0.12);
+}
+
+.brand-logo {
+    height: 44px;
+    width: auto;
+    flex-shrink: 0;
+    display: block;
+    filter: drop-shadow(0 0 16px var(--glow-primary));
+}
+
+/* Partner marks: class-based sizes (alts may all read POPBEA for branding) */
+.brand-logo-partner-vai,
+.brand-logo-partner-luz {
+    height: 40px;
+}
+
+.brand-logo-partner-sur,
+.brand-logo[alt="POPZOE"],
+.brand-logo-zoe {
+    height: 52px;
+    animation: popzoe-breathe 3s ease-in-out infinite;
+}
+
+.brand-logo[alt="POPZOE"] {
+    animation-delay: -1.5s;
+}
+
+/* Center hero: POPBEA wordmark */
+.brand-logo.brand-logo-main {
+    height: 72px;
+    animation: none;
+}
+
+/* POPFOI wordmark beside POPBEA */
+.brand-logo.brand-logo-foi {
+    height: 52px;
+    animation: none;
+}
+
+@keyframes popzoe-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+
+.brand-divider {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-muted);
+    opacity: 0.55;
+    line-height: 1;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 32px 24px;
+    margin-bottom: 24px;
+    position: relative;
+    /* overflow: hidden; - Removed to let logos stick out */
+}
+
+/* Mentor card: logos sit in normal flow above header — no absolute overlap */
+.card-mentor {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+}
+
+/* ===== LAUNCH CARD ===== */
+.card-launch {
+    text-align: center;
+}
+
+.launch-badge {
+    display: inline-block;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.launch-title {
+    font-size: 32px;
+    font-weight: 900;
+    background: linear-gradient(180deg, #fff, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.launch-subtitle {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 4px; /* Reduced from 8px to pull date higher */
+}
+
+.launch-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    gap: 0px; /* Remove default gap if any */
+}
+
+.date-day {
+    font-size: 72px;
+    font-weight: 900;
+    background: linear-gradient(180deg, #e9d5ff 0%, var(--secondary-light) 55%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 0.9; /* Tighter line height to pull month closer */
+    margin-bottom: -5px; /* Pull month up closer */
+}
+
+.date-month {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: 8px;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* ===== IMAGE BANNER SLIDER ===== */
+.banner-slider {
+    position: relative;
+    width: 100%;
+    margin-bottom: 28px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(192, 132, 252, 0.4);
+    box-shadow: 0 0 18px var(--glow-secondary);
+}
+
+.banner-track {
+    display: flex;
+    /* 32s total: 8 slides × 4s each */
+    animation: bannerSlide 32s ease-in-out infinite;
+}
+
+.banner-slide {
+    flex-shrink: 0;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-slide img {
+    width: 100%;
+    height: 100%; /* Ensure it takes full height of container */
+    min-height: 150px; /* Maintain height */
+    display: block;
+    object-fit: fill; /* Stretch to fill container, ignoring aspect ratio */
+}
+
+/* Diagonal Light Sweep Effect for Banner Slides */
+.banner-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    animation: lightSweepDiagonal 2.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes lightSweepDiagonal {
+    0% {
+        left: -150%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+/* Slide animation: pause on each slide, then slide to next (8 slides + duplicate set for loop) */
+@keyframes bannerSlide {
+    0% { transform: translateX(0); }
+    10.63% { transform: translateX(0); }
+    12.5% { transform: translateX(-100%); }
+    23.13% { transform: translateX(-100%); }
+    25% { transform: translateX(-200%); }
+    35.63% { transform: translateX(-200%); }
+    37.5% { transform: translateX(-300%); }
+    48.13% { transform: translateX(-300%); }
+    50% { transform: translateX(-400%); }
+    60.63% { transform: translateX(-400%); }
+    62.5% { transform: translateX(-500%); }
+    73.13% { transform: translateX(-500%); }
+    75% { transform: translateX(-600%); }
+    85.63% { transform: translateX(-600%); }
+    87.5% { transform: translateX(-700%); }
+    98.13% { transform: translateX(-700%); }
+    100% { transform: translateX(-800%); }
+}
+
+/* Banner Glow Effect */
+.banner-slider::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary), var(--primary));
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(8px);
+}
+
+/* Primary Button */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 18px 36px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px var(--glow-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Diagonal Light Sweep Effect for Button */
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    animation: btnLightSweepDiagonal 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes btnLightSweepDiagonal {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 200%;
+    }
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px var(--glow-secondary);
+}
+
+.btn-arrow {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* ===== MENTOR CARD ===== */
+.mentor-header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px; /* Drastically reduced from 12px */
+}
+
+.mentor-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/* Mentor photo (see MENTOR PHOTO folder; replaces initials when present) */
+.mentor-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mentor-identity {
+    display: flex;
+    flex-direction: column;
+}
+
+.mentor-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.mentor-name {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+.mentor-bio-text {
+    font-size: 18px; /* Large base font size */
+    color: var(--text-secondary);
+    line-height: 1.2;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 12px;
+    position: relative;
+    overflow: hidden;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.bio-main-text {
+    display: block;
+    text-align: center !important; /* CENTERED on all versions */
+    white-space: nowrap !important;
+    width: 100%;
+    font-size: 18px; /* Base font size - JS will override dynamically */
+    overflow: visible; /* Allow text to be visible during scaling */
+}
+
+.bio-receba {
+    display: block;
+    text-align: center !important; /* Force center alignment */
+    white-space: nowrap !important;
+    width: 100%;
+    margin-top: 8px; /* Space between lines */
+    font-size: 18px; /* Base font size - JS will override to match main text dynamically */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mentor-bio-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    animation: lightSweepDiagonal 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.mentor-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+/* Features Grid */
+.features-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(147, 51, 234, 0.12);
+    border: 1px solid rgba(45, 212, 191, 0.28);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.feature-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.feature-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+/* CTA Box */
+.cta-box {
+    background: linear-gradient(180deg, rgba(147, 51, 234, 0.14), rgba(45, 212, 191, 0.12));
+    border: 1px solid rgba(192, 132, 252, 0.35);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.cta-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.cta-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Contact Buttons */
+.contact-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+    height: 42px;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    transition: all 0.3s ease;
+    height: 42px;
+}
+
+.contact-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.contact-btn.whatsapp {
+    background: linear-gradient(180deg, #25D366, #128C7E);
+}
+
+.contact-btn.telegram {
+    background: linear-gradient(180deg, #0088cc, #005f99);
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.group-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 14px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.group-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--glow-primary);
+}
+
+/* ===== RTP IFRAME ===== */
+.rtp-iframe-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+/* Shockwave effect - multiple ripples emanating from border */
+.rtp-iframe-wrapper::before,
+.rtp-iframe-wrapper::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid rgba(45, 212, 191, 0.5);
+    border-radius: 16px;
+    pointer-events: none;
+    animation: shockwave 3s ease-out infinite;
+}
+
+.rtp-iframe-wrapper::after {
+    animation-delay: 1.5s;
+}
+
+@keyframes shockwave {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+        border-color: rgba(192, 132, 252, 0.75);
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 0.4;
+        border-color: rgba(45, 212, 191, 0.45);
+    }
+    100% {
+        transform: scale(1.06);
+        opacity: 0;
+        border-color: rgba(45, 212, 191, 0);
+    }
+}
+
+.rtp-iframe-container {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0c0e1c;
+    border: 2px solid rgba(192, 132, 252, 0.45);
+    box-shadow: 0 0 25px var(--glow-primary),
+                0 0 48px var(--glow-secondary),
+                inset 0 0 0 1px rgba(200, 180, 255, 0.12);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 15px;
+
+}
+
+.rtp-iframe {
+    width: 100%;
+    height: 800px;
+    border: none;
+    display: block;
+}
+
+/* Hide iframe internal scrollbar if possible */
+.rtp-iframe-container::-webkit-scrollbar {
+    display: none;
+    margin-bottom: 15px;
+}
+
+/* ===== BONUS CARD ===== */
+.card-bonus {
+    background: linear-gradient(180deg, rgba(147, 51, 234, 0.12), rgba(45, 212, 191, 0.1));
+    border-color: rgba(192, 132, 252, 0.3);
+}
+
+.bonus-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.bonus-emoji {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.bonus-title {
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--secondary-light) 50%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bonus-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+/* Steps List */
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+}
+
+.step-num {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.step-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: rgba(147, 51, 234, 0.1);
+    border: 1px solid rgba(45, 212, 191, 0.28);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+}
+
+.footer-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.footer-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--warning);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.footer-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 0px 16px; /* User set */
+    }
+
+    .brand-logos {
+        gap: 5px;
+        margin-bottom: 18px;
+    }
+
+    .brand-logos-partners {
+        gap: 6px 8px;
+        row-gap: 6px;
+        padding-top: 0;
+    }
+
+    .brand-logo {
+        height: 34px;
+    }
+
+    .brand-logo-partner-vai,
+    .brand-logo-partner-luz {
+        height: 30px;
+    }
+
+    .brand-logo-partner-sur,
+    .brand-logo[alt="POPZOE"],
+    .brand-logo-zoe {
+        height: 44px;
+    }
+
+    .brand-logo.brand-logo-main {
+        height: 58px;
+    }
+
+    .brand-logo.brand-logo-foi {
+        height: 42px;
+    }
+
+    .card {
+        padding: 16px 14px; /* Reduced padding from 24px 20px */
+        border-radius: 20px;
+        margin-bottom: 16px; /* Reduced bottom margin */
+        overflow: visible; /* Ensure logos are visible */
+    }
+
+    .card-mentor {
+        margin-top: 25px;
+        padding-top: 0px;
+    }
+
+    /* Mentor Section Compaction */
+    .mentor-header-top {
+        margin-bottom: 8px; /* Reduced from 8px */
+    }
+
+    .mentor-label {
+        font-size: 13px; /* Slightly smaller on mobile but still readable */
+        margin-bottom: 2px;
+    }
+
+    .mentor-name {
+        font-size: 24px; /* Reduced from 30px to fit better */
+    }
+
+    .mentor-bio-text {
+        font-size: 13px;
+        padding: 10px 12px;
+        padding-right: 12px;
+        margin-bottom: 10px;
+        overflow: hidden; /* Clip overflow but JS ensures text fits */
+    }
+
+    .bio-main-text {
+        font-size: 13px; /* Base font size - JS will override dynamically */
+        text-align: center !important; /* CENTERED on mobile */
+        white-space: nowrap !important; /* KEEP SINGLE LINE */
+        overflow: visible !important; /* Allow text to be visible - JS will scale it */
+        max-width: 100%;
+    }
+
+    .bio-receba {
+        font-size: 13px; /* Base font size - JS will override to match main text dynamically */
+        text-align: center !important; /* Ensure centered on mobile */
+        white-space: nowrap !important;
+    }
+
+    .contact-btns {
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .contact-btn {
+        padding: 14px; /* Reduced padding */
+    }
+
+    .group-btn {
+        padding: 14px;
+    }
+
+    /* Launch Section Compaction */
+    .launch-badge {
+        padding: 6px 16px;
+        margin-bottom: 8px;
+        font-size: 11px;
+    }
+
+    .launch-title {
+        font-size: 24px;
+        margin-bottom: 2px;
+    }
+
+    .launch-subtitle {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .launch-date {
+        margin-bottom: 16px; /* Reduced from 24px */
+    }
+
+    .date-day {
+        font-size: 56px;
+        margin-bottom: 0px;
+        line-height: 0.9;
+    }
+
+    .date-month {
+        font-size: 20px;
+        letter-spacing: 4px;
+    }
+
+    .banner-slider {
+        margin-bottom: 16px; /* Reduced from 28px */
+        border-radius: 12px;
+    }
+
+    .btn-primary {
+        padding: 14px 24px;
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .footer {
+        padding: 16px;
+    }
+}
